@@ -1,0 +1,18 @@
+{
+  "name": "crazy-water-world",
+  "version": "1.0.0",
+  "description": "Crazy Water World Docs",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "vitepress-sidebar": "^1.39.0"
+  },
+  "dependencies": {
+    "@css-render/vue3-ssr": "^0.15.14",
+    "naive-ui": "^2.45.3"
+  }
+}
