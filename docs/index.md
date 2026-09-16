@@ -11,8 +11,11 @@ hero:
       text: 新手起步🧨
       link: /菜单/基础/材料/
     - theme: alt
-      text: 工具🗝️
+      text: 工具🔧
       link: /工具/
+    - theme: alt
+      text: 兑换码🔑
+      link: /兑换码/
 
 features:
   - icon: 🚀

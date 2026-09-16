@@ -37,22 +37,34 @@ const vitepressConfig: UserConfig = {
       // 本地搜索选项
       options: {
         // 本地搜索国际化配置
-        locales: {
-          // 中文
-          zh: {
-            translations: {
-              button: {
-                buttonText: '搜索文档',
-                buttonAriaLabel: '搜索文档',
-              },
-              modal: {
-                noResultsText: '无法找到相关结果',
-                resetButtonTitle: '清除查询条件',
-                footer: {
-                  selectText: '选择',
-                  navigateText: '切换',
-                },
-              },
+        translations: {
+          button: {
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档',
+          },
+          modal: {
+            noResultsText: '无法找到相关结果',
+            resetButtonTitle: '清除查询条件',
+            footer: {
+              selectText: '选择',
+              navigateText: '切换',
+            },
+          },
+        },
+        // MiniSearch 配置
+        miniSearch: {
+          options: {
+            // 自定义分词器，解决中文搜索问题
+            tokenize: (text: string, _fieldName: string) => {
+              // 使用 Intl.Segmenter 进行中文分词（支持中文、日文等 CJK 语言）
+              if (Intl.Segmenter) {
+                const segmenter = new Intl.Segmenter('zh-CN', {
+                  granularity: 'word',
+                });
+                return [...segmenter.segment(text)].map((s) => s.segment.trim()).filter(Boolean);
+              }
+              // 降级方案：按空格和标点分割
+              return text.split(/[\s\p{P}]+/u).filter(Boolean);
             },
           },
         },

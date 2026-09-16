@@ -2,8 +2,8 @@ import DefaultTheme from 'vitepress/theme';
 // @ts-ignore
 import './custom.css';
 import { setup } from '@css-render/vue3-ssr';
-import { NConfigProvider } from 'naive-ui';
-import { useRoute } from 'vitepress';
+import { NConfigProvider, NMessageProvider, NDialogProvider, darkTheme } from 'naive-ui';
+import { useRoute, useData } from 'vitepress';
 import { defineComponent, h, inject } from 'vue';
 
 const { Layout } = DefaultTheme;
@@ -32,13 +32,23 @@ const VitepressPath = defineComponent({
 });
 
 const NaiveUIProvider = defineComponent({
+  setup() {
+    const { isDark } = useData();
+    return { isDark };
+  },
   render() {
     return h(
       NConfigProvider,
-      { abstract: true, inlineThemeDisabled: true },
+      { abstract: true, inlineThemeDisabled: true, theme: this.isDark ? darkTheme : null },
       {
-        // @ts-ignore
-        default: () => [h(Layout, null, { default: this.$slots.default?.() }), import.meta.env.SSR ? [h(CssRenderStyle), h(VitepressPath)] : null],
+        default: () =>
+          h(NDialogProvider, null, {
+            default: () =>
+              h(NMessageProvider, null, {
+                // @ts-ignore
+                default: () => [h(Layout, null, { default: this.$slots.default?.() }), import.meta.env.SSR ? [h(CssRenderStyle), h(VitepressPath)] : null],
+              }),
+          }),
       },
     );
   },
