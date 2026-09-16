@@ -61,7 +61,7 @@ const vitepressConfig: UserConfig = {
 
     // 允许自定义上次更新的文本和日期格式
     lastUpdated: {
-      text: '最后更新于：',
+      text: '最后更新于',
       formatOptions: {
         dateStyle: 'full',
         timeStyle: 'medium',
