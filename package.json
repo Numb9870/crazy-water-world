@@ -1,6 +1,6 @@
 {
   "name": "crazy-water-world",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Crazy Water World Docs",
   "scripts": {
     "docs:dev": "vitepress dev docs",
